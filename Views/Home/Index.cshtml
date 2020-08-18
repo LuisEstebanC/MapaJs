@@ -1,0 +1,73 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+\
+  <div class="text-center">
+    <h1 class="display-4">Bienvenido</h1>
+  
+
+<div id ="map"> </div> 
+<label>Lat: </label>
+<input type="number" id="lat" placeholder="19.4398316">
+<label>Lng: </label>
+<input type="number" id="log" placeholder="-70.7430638">
+<label>Cedula: </label>
+<input type="text" id="cedula" placeholder="40100304728">
+<button onclick="marcar()" class="btn btn-outline-success">Marcar</button>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcT56_4I0L98-RcKfYWUgOelKz-cH2tGM&callback=initMap" async defer></script>
+	<script>
+		
+      var map;
+  	 function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+		    center: {lat: 18.4800295, lng: -70.0169204},
+        zoom: 8,
+
+
+
+        });  
+
+        
+      }   
+
+           function marcar(){
+        var lat = document.getElementById('lat').value;     
+        var log = document.getElementById('log').value;
+        var cedula = document.getElementById('cedula').value;
+
+        fetch("http://173.249.49.169:88/api/test/consulta/" + cedula)
+        .then(response => response.json())
+        .then(data =>{
+          
+           var marker = new google.maps.Marker({
+          position:   new google.maps.LatLng(lat, log),
+          draggable:true,
+          map: map,
+	        title: (data.Nombres +" " + cedula)
+  
+        });
+                   
+        })
+}
+	</script>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+}

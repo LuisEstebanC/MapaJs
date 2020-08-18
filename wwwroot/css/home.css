@@ -1,0 +1,16 @@
+.padre {
+    margin-top: 3%;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hijo {
+    background: white;
+    width: 120px;
+}
+
+#body {
+    background-color: rgb(176, 177, 182);
+}
